@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Curiosidades de São Paulo | SP 470+</title>
+  <style>
+    /* ==========================================================================
+       1. VARIABLES & RESET
+       ========================================================================== */
+    :root {
+      --bg-main: #0f172a;
+      --bg-card: #1e293b;
+      --bg-card-hover: #334155;
+      --accent-red: #ef4444;
+      --accent-gold: #f59e0b;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --border-color: #334155;
+      --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --radius: 12px;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-primary);
+      font-family: var(--font-family);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ==========================================================================
+       2. HEADER & HERO
+       ========================================================================== */
+    header {
+      background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(30,41,59,0.98));
+      border-bottom: 1px solid var(--border-color);
+      padding: 3rem 1.5rem 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .badge {
+      display: inline-block;
+      background-color: rgba(239, 68, 68, 0.15);
+      color: var(--accent-red);
+      padding: 0.35rem 0.85rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    header h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.75rem;
+    }
+
+    header h1 span {
+      background: linear-gradient(90deg, #ef4444, #f59e0b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+    }
+
+    /* ==========================================================================
+       3. METRICS / STATS BAR
+       ========================================================================== */
+    .stats-bar {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      max-width: 1100px;
+      margin: -1.5rem auto 2.5rem;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .stat-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius);
+      text-align: center;
+      min-width: 160px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    /* ==========================================================================
+       4. MAIN CONTENT & FILTERS
+       ========================================================================== */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+      flex: 1;
+      width: 100%;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .filters {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-secondary);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .filter-btn:hover {
+      background: var(--bg-card-hover);
+      color: var(--text-primary);
+    }
+
+    .filter-btn.active {
+      background-color: var(--accent-red);
+      color: #fff;
+      border-color: var(--accent-red);
+    }
+
+    .search-input {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 0.55rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      outline: none;
+      transition: var(--transition);
+      min-width: 240px;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-red);
+      box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+    }
+
+    /* ==========================================================================
+       5. CARDS GRID
+       ========================================================================== */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--accent-red);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      background-color: var(--bg-card-hover);
+      box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.4);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .card-icon {
+      font-size: 1.8rem;
+    }
+
+    .card-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: rgba(245, 158, 11, 0.1);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      flex-grow: 1;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 1rem;
+    }
+
+    .like-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+
+    .like-btn:hover, .like-btn.liked {
+      color: var(--accent-red);
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 4rem 1rem;
+      color: var(--text-secondary);
+    }
+
+    /* ==========================================================================
+       6. FOOTER
+       ========================================================================== */
+    footer {
+      background-color: #0b1120;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      padding: 2rem 1.5rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    footer strong {
+      color: var(--text-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <span class="badge">A Maior Metrópole do Hemisfério Sul</span>
+    <h1>São Paulo <span>em Fatos</span></h1>
+    <p>Descubra as curiosidades mais fascinantes sobre a história, cultura, gastronomia e ritmo da capital paulista.</p>
+  </header>
+
+  <section class="stats-bar">
+    <div class="stat-item">
+      <span class="stat-value">1 milhão</span>
+      <span class="stat-label">Pizzas por dia</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value">200+</span>
+      <span class="stat-label">Helipontos urbanos</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value">15.000+</span>
+      <span class="stat-label">Restaurantes</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-value">835 m</span>
+      <span class="stat-label">Altitude média</span>
+    </div>
+  </section>
+
+  <main>
+    <div class="controls">
+      <div class="filters" id="filtersContainer">
+        <button class="filter-btn active" data-category="all">Todas</button>
+        <button class="filter-btn" data-category="gastronomia">Gastronomia</button>
+        <button class="filter-btn" data-category="urbanismo">Urbanismo</button>
+        <button class="filter-btn" data-category="cultura">Cultura & Pessoas</button>
+      </div>
+      <input type="text" id="searchInput" class="search-input" placeholder="Buscar curiosidade...">
+    </div>
+
+    <div class="grid" id="cardsGrid">
+      <!-- Cards rendered via JS -->
+    </div>
+  </main>
+
+  <footer>
+    <p>Desenvolvido com HTML, CSS e JavaScript Vanilla — <strong>São Paulo Capital</strong></p>
+  </footer>
+
+  <script>
+    /* ==========================================================================
+       1. DATA SOURCE
+       ========================================================================== */
+    const curiosities = [
+      {
+        id: 1,
+        title: "Capital Mundial da Pizza",
+        category: "gastronomia",
+        icon: "🍕",
+        description: "São Paulo é a segunda cidade que mais consome pizza no planeta, atrás apenas de Nova York. São consumidas cerca de 1 milhão de pizzas por dia na capital paulista!",
+        likes: 142
+      },
+      {
+        id: 2,
+        title: "Maior Frota de Helicópteros",
+        category: "urbanismo",
+        icon: "🚁",
+        description: "SP possui a maior frota de helicópteros de uso civil do mundo, superando cidades como Nova York e Tóquio. A cidade conta com mais de 200 helipontos em operação.",
+        likes: 98
+      },
+      {
+        id: 3,
+        title: "Pequeno Japão Paulista",
+        category: "cultura",
+        icon: "🏮",
+        description: "O bairro da Liberdade abriga a maior comunidade japonesa fora do Japão no mundo. A imigração começou em 1908 com a chegada do navio Kasato Maru.",
+        likes: 210
+      },
+      {
+        id: 4,
+        title: "Terra da Garoa... no passado?",
+        category: "urbanismo",
+        icon: "🌧️",
+        description: "O famoso apelido surgiu devido à constante névoa úmida nos anos 50/60. Com a expansão do concreto e o efeito de ilha de calor, a garoa hoje é bem menos frequente.",
+        likes: 76
+      },
+      {
+        id: 5,
+        title: "Mais Alta que Cidades Serranas",
+        category: "urbanismo",
+        icon: "🏔️",
+        description: "A Avenida Paulista está localizada a cerca de 835 metros de altitude acima do nível do mar, o que torna São Paulo mais alta do que muitas cidades de serra.",
+        likes: 115
+      },
+      {
+        id: 6,
+        title: "Mecana Gastronômica Global",
+        category: "gastronomia",
+        icon: "🍽️",
+        description: "Com mais de 15 mil restaurantes e 20 mil bares, São Paulo oferece gastronomia típica de mais de 50 países diferentes em seus diversos bairros.",
+        likes: 184
+      },
+      {
+        id: 7,
+        title: "Trânsito de Dezenas de Quilômetros",
+        category: "urbanismo",
+        icon: "🚗",
+        description: "Em maio de 2014, a cidade registrou seu recorde histórico de congestionamento: incríveis 344 km de filas somadas ao longo da capital.",
+        likes: 54
+      },
+      {
+        id: 8,
+        title: "O Pátio do Colégio",
+        category: "cultura",
+        icon: "🏛️",
+        description: "São Paulo nasceu em 25 de janeiro de 1554 com a fundação de uma missão jesuíta por Manuel da Nóbrega e José de Anchieta, no local hoje conhecido como Pátio do Colégio.",
+        likes: 89
+      }
+    ];
+
+    /* ==========================================================================
+       2. DOM ELEMENTS & STATE
+       ========================================================================== */
+    const cardsGrid = document.getElementById('cardsGrid');
+    const filtersContainer = document.getElementById('filtersContainer');
+    const searchInput = document.getElementById('searchInput');
+
+    let currentCategory = 'all';
+    let searchQuery = '';
+
+    /* ==========================================================================
+       3. RENDER FUNCTIONS
+       ========================================================================== */
+    function renderCards() {
+      const filteredData = curiosities.filter(item => {
+        const matchesCategory = currentCategory === 'all' || item.category === currentCategory;
+        const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                              item.description.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesCategory && matchesSearch;
+      });
+
+      if (filteredData.length === 0) {
+        cardsGrid.innerHTML = `
+          <div class="empty-state">
+            <p>Nenhuma curiosidade encontrada com os termos buscados.</p>
+          </div>
+        `;
+        return;
+      }
+
+      cardsGrid.innerHTML = filteredData.map(item => `
+        <article class="card" data-id="${item.id}">
+          <div>
+            <div class="card-header">
+              <span class="card-icon" role="img" aria-label="ícone">${item.icon}</span>
+              <span class="card-tag">${item.category}</span>
+            </div>
+            <h3>${item.title}</h3>
+            <p>${item.description}</p>
+          </div>
+          <div class="card-footer">
+            <button class="like-btn" onclick="handleLike(${item.id})">
+              ❤️ <span id="like-count-${item.id}">${item.likes}</span>
+            </button>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    /* ==========================================================================
+       4. EVENT HANDLERS
+       ========================================================================== */
+    // Filter Buttons Click
+    filtersContainer.addEventListener('click', (e) => {
+      if (!e.target.classList.contains('filter-btn')) return;
+
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      e.target.classList.add('active');
+
+      currentCategory = e.target.getAttribute('data-category');
+      renderCards();
+    });
+
+    // Search Input
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      renderCards();
+    });
+
+    // Global Like Handler
+    window.handleLike = function(id) {
+      const item = curiosities.find(c => c.id === id);
+      if (item) {
+        item.likes += 1;
+        const countElement = document.getElementById(`like-count-${id}`);
+        if (countElement) {
+          countElement.textContent = item.likes;
+        }
+      }
+    };
+
+    /* ==========================================================================
+       5. INITIALIZATION
+       ========================================================================== */
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCards();
+    });
+  </script>
+</body>
+</html>
